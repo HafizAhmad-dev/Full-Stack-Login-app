@@ -9,8 +9,7 @@ const App = () => {
   // Send data when the submit button is clicked
   const SendData = () => {
     if (data.name !== "" && data.password !== "") {
-
-      fetch("http://localhost:3000", {
+      fetch("http://192.168.0.104:3000", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -19,11 +18,14 @@ const App = () => {
       })
         .then((response) => response.json()) // Parse JSON response
         .then((data) => {
-          console.log(data)
-          alert(`Name is ${data.name} and password is ${data.password}`) // Handle the response data from backend
+          console.log(data);
+          alert(`Name is ${data.name} and password is ${data.password}`); // Handle the response data from backend
+          setData({
+            name: "",
+            password: "",
+          });
         })
         .catch((err) => console.log("Error:", err));
-
     } else {
       console.log("Please enter your credentials");
       alert("Please enter your credentials");
@@ -45,6 +47,7 @@ const App = () => {
           className="input-field w-full px-4 py-2 border border-purple-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 placeholder-purple-400"
           type="text"
           placeholder="Enter your Name"
+          value={data.name}
           name="name"
           onChange={(e) => handleChange(e)}
         />
@@ -52,6 +55,7 @@ const App = () => {
           className="input-field w-full px-4 py-2 mt-3 border border-purple-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 placeholder-purple-400"
           type="password"
           placeholder="Enter your password"
+          value={data.password}
           name="password"
           onChange={(e) => handleChange(e)}
         />
