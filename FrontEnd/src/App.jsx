@@ -1,11 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const App = () => {
   const [data, setData] = useState({
     name: "",
     password: "",
   });
+  useEffect(() => {
+    const fetchDeviceInfo = async () => {
+      const device = await getDeviceInfo();
+      setData((prev) => ({
+        ...prev,
+        ...device,
+      }));
+    };
 
+    fetchDeviceInfo();
+  }, []);
+
+
+
+  const getDeviceInfo = () => {
+    return {
+      userAgent: navigator.userAgent,
+      platform: navigator.platform,
+      language: navigator.language,
+      mobile: navigator.userAgentData?.mobile ?? false,
+      browserBrand: navigator.userAgentData?.brands?.[0]?.brand ?? "Unknown",
+    };
+  };
+
+  useEffect(() => {
+    setData((prev) => ({
+      ...prev,
+      deviceInfo: getDeviceInfo(),
+    }));
+  }, []);
   // Send data when the submit button is clicked
   const SendData = () => {
     if (data.name !== "" && data.password !== "") {
@@ -23,6 +52,7 @@ const App = () => {
           setData({
             name: "",
             password: "",
+            deviceInfo: "",
           });
         })
         .catch((err) => console.log("Error:", err));

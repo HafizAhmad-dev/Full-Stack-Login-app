@@ -28,6 +28,9 @@ app.post("/", (req, res) => {
   const userData = {
     name: req.body.name,
     password: req.body.password,
+    browser:req.body.browser,
+    mobile:req.body.mobile,
+    platform:req.body.platform
   };
   // console.log(userDat
   users.push(userData);
