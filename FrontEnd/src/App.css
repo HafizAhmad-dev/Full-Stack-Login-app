@@ -1,0 +1,4 @@
+@import "tailwindcss";
+
+.input-field { 
+    @apply border-1 w-[85%] h-[50px] rounded-3xl px-3 text-xl }
